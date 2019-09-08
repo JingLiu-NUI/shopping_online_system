@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templates/TemplateHome.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <h:form>
+            <h1>Customer Details </h1>
+            <h:panelGrid class="panel-group" columns="3">		
+                
+                <h:outputText value="ID"></h:outputText> 
+                <h:inputText id="userID" value="#{userBean.id}">
+                    <f:validateRequired/>
+                </h:inputText>
+                <h:message for="userID"/>
+                <br/>
+                
+                Username:
+                <h:inputText id="username" value="#{userBean.username}">
+                    <f:validateRequired/>
+                </h:inputText> 
+                <h:message for="username"/>
+                <br/>
+                
+                Password:
+                <h:inputText id="password" value="#{userBean.password}">
+                    <f:validateRequired/>
+                </h:inputText>
+                <h:message for="password"/>
+                <br/>
+                
+                Age:
+                <h:inputText id="userAge" value="#{userBean.age}"> 
+                    <f:validateRequired/>
+                </h:inputText>
+                <h:message for="userAge"/>
+                <br/>
+                
+                Phone number:
+                <h:inputText id="phonenumber" value="#{userBean.phonenumber}">
+                    <f:validateRegex pattern="[0-9]{10,13}" for="phonenumber"/>
+                </h:inputText>
+                <h:message for="phonenumber"/>
+                <br/>
+                
+                user massage:
+                <h:inputTextarea id="userMSG" value="#{userBean.userMSG}"/> 
+                <h:message for="userMSG"/>
+                <br/>
+                
+                email:
+                <h:inputText id="email" value="#{userBean.email}"/>
+                <h:message for="email"/>
+                <br/>
+                
+	    </h:panelGrid>
+            <br/> <br/>
+            <h:commandButton class="btn bg-primary" action="#{userBean.modifyDetailFromCustomer()}" value="Edit My Profile"/>
+
+        <br/><br/> 
+        <!-- <h:commandButton class="btn bg-primary" action="home_customer" value="Back to index"/> -->
+        <h:outputLabel value="#{userBean.outputTextForValidation}" />
+            
+        </h:form>
+    </ui:define>
+</ui:composition>
+

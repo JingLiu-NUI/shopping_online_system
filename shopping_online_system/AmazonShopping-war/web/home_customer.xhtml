@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templates/TemplateHome.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <h:form> 
+            <h2><h:outputLabel value="Welcome! #{loginBean.username}" /></h2>
+            <ul>
+                <dl> <h3>Menu</h3></dl>
+                
+                <li>
+                    <h:commandButton class="btn bg-primary" action="GoShoppingPage" value="Go Shopping"/>            
+                </li> <br/>
+                
+                <!--在这里的action写上购物车页面的名字-->
+                <li>
+                    <h:commandButton class="btn bg-primary" action="index" value="Look My Cart"/>
+                </li> <br/>
+                
+                <li>
+                    <h:commandButton class="btn bg-primary" action="searchProfiles" value="Query Customer"/>   
+                </li> <br/>
+                
+                <li>
+                    <h:commandButton class="btn bg-primary" action="editProfile" value="edit my profile~"/>   
+                </li> <br/>
+	
+            </ul> 
+        </h:form>
+    </ui:define>
+</ui:composition>

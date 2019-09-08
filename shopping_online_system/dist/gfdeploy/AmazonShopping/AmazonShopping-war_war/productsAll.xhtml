@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templates/TemplateHome.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+       <h:form>
+            <p>
+                <h:inputText id="searchByName" class="input-lg" value="#{productBean.productName}"></h:inputText>
+                <h:message for="searchByName"></h:message> 
+                <br /><br /> 
+                <h:commandButton class="btn badge" action="showProductbyName" value="Show Product by Name"/> 
+               </p>
+             <p>
+                 <h:inputText id="searchByID" class="input-lg" value="#{productBean.productID}"></h:inputText>
+                <h:message for="searchByID"></h:message> 
+                <br /><br /> 
+                <h:commandButton class="btn badge" action="showProductbyID" value="Show Product by ID"/> 
+               </p>
+              <h1>List all Products Details</h1>
+          
+              <h:dataTable class="table tab-content" value="#{productBean.findProductAll()}"  var="product" >
+                 <h:column>
+                    <f:facet name="header">Product ID</f:facet>
+                        #{product.productID}
+                </h:column>  
+                <h:column>
+                    <f:facet name="header">Product Name</f:facet>
+                        #{product.productName}
+                </h:column> 
+                <h:column>
+                    <f:facet name="header">Type</f:facet>
+                        #{product.typeID.typeText}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Quantity</f:facet>
+                        #{product.quantity}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Price</f:facet>
+                        #{product.price}
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">Size</f:facet>
+                        #{product.size}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Product Message</f:facet>
+                        #{product.productDescribe}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Add to Cart</f:facet>
+                    <h:commandButton class="btn bg-primary" value="Add to Cart" 
+                                     action="#{productBean.addProductIntoCart(product.productID,1,product)}"   />
+                </h:column>
+               
+            </h:dataTable>
+              <br/><br/><br/>
+              <h:commandButton class="btn bg-success" action="home_customer" value="Show my cart"/>      
+        </h:form>
+    </ui:define>
+</ui:composition>

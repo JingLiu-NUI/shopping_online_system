@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templates/TemplateHome.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <h1>List Customer through search</h1>
+        <h:form>
+            <h:dataTable class="table tab-content" value="#{userBean.getCustomerByName(userBean.username)}" 
+                         var="customer">
+  
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{customer.id}
+                </h:column> 
+                  
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                        #{customer.username}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Age</f:facet>
+                        #{customer.age}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Phone</f:facet>
+                        #{customer.phoneNumber}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Email</f:facet>
+                        #{customer.email}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">User Massage</f:facet>
+                        #{customer.userMSG}
+                </h:column>
+               
+            </h:dataTable>
+                 
+        <br/><br/>      
+        <h:commandButton class="btn btn-block" action="searchProfiles" value="Back to Customer Search"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

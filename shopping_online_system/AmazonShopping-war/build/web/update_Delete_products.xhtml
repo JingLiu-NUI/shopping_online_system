@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templates/TemplateHome.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <h:form>    
+              <h1>List all Products Details</h1>              
+              <h:dataTable class="table" value="#{productBean.findProductAll()}" 
+                         var="product" border="1" cellpadding="5">
+                <h:column>
+                    <f:facet name="header">Product Name</f:facet>
+                        #{product.productName}
+                </h:column> 
+                   
+                 <h:column>
+                    <f:facet name="header">Price</f:facet>
+                        #{product.price}
+                 </h:column>
+              <h:column>
+                    <f:facet name='header'>Quantity</f:facet>
+                    <h:inputText value="#{product.quantity}" size="3"
+                                 rendered="#{productBean.canEdit}">
+                        <f:validateLongRange minimum="0" />
+                    </h:inputText>
+                    <h:outputText value="#{product.quantity}"
+                                  rendered="#{not productBean.canEdit}"/>
+              </h:column>                                
+                <h:column>
+                    <f:facet name="header">Delete</f:facet>
+                    <h:commandButton class="btn btn-default" value="Delete" 
+                                     action="#{productBean.removeProduct(product)}"
+                                     rendered="#{not productBean.canEdit}">
+                    </h:commandButton>
+                </h:column>              
+            </h:dataTable>                     
+                     <h:commandButton class="btn btn-default" value="Edit Product Quantity" rendered="#{not productBean.canEdit}" action="#{productBean.editProduct()}" />	                   
+                     <h:commandButton class="btn btn-default" value="Save Product Quantity" action="#{productBean.saveProducts()}" />              
+                     <h:commandButton class="btn btn-default" value="Back to Administer home" action="home_admin" />	                    
+                     <h:commandButton class="btn btn-default" value="Add A New Product" action="addNewProduct_admin" />                    
+        </h:form>
+    </ui:define>
+</ui:composition>

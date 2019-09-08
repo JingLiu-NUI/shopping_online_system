@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templates/TemplateHome.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <div style="height: 800px;">
+        <f:view>
+            <h:form>
+                    <h1>The Submiited Order</h1>
+                    The Username: <h:outputText value="#{showCart.username}"></h:outputText>
+                    <h:dataTable class="table table-bordered" value="#{showCart.checkedList}" var="item">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ProductName"/>
+                                </f:facet>
+                                <h:outputText value="#{item.product.productName}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ProductQuantity"/>
+                                </f:facet>
+                                <h:outputText value="#{item.productQuantity}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Unit Price"></h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{item.product.price}"></h:outputText>€
+                            </h:column>
+                        </h:dataTable>
+                    <p style="font-size: 20px;">The Total Price:
+                    <h:outputText style="font-size: 40px;" class="text-primary" value="#{showCart.totalprice}">
+                            <f:convertNumber maxFractionDigits="2"></f:convertNumber>
+                        </h:outputText>€</p>         
+                    Choose your address: <br/>
+            <h:panelGrid border="1" cellpadding="0" cellspacing="0" >
+                <h:selectOneRadio style="size: 100px;" layout="pageDirection" value="#{newJSFManagedBean.selectValue}" onclick="submit()">
+                        <f:selectItems value="#{newJSFManagedBean.getAddress(showCart.username)}"/>
+                </h:selectOneRadio>            
+                <table class="table-condensed">
+                <tr>
+                    <td><bf>Add</bf></td>
+                    <td><bf>New</bf></td>
+                    <td><bf>Address</bf></td>
+                </tr>
+                <tr> 
+                    <bf> <h:inputText class="input-sm" value="#{newJSFManagedBean.address}"/>  </bf>
+                </tr>                    
+                <tr>
+                    <td>
+                        <h:commandButton class="btn btn-default" action="#{newJSFManagedBean.addAddress(showCart.username)}" value ="Add"/>
+                    </td>
+                </tr>    
+                </table>           
+              </h:panelGrid>   
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <h:commandButton class="btn bg-primary" action="#{orderRecordManagedBean.createNewRecord(showCart.username,orderRecordManagedBean.maxId,showCart.totalprice,newJSFManagedBean.selectValue,showCart.checkedList)}" value ="Submit" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <h:commandButton class="btn alert-danger" value="Cancel" action="#{showCart.MyCart()}"></h:commandButton>
+         </h:form>
+           </f:view>
+    </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templates/TemplateHome.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <h:form>
+		<h3>Sign-In</h3>
+                <br />
+                <br />
+            <h:panelGrid columns="2">	
+                <h:outputText value="Username  " />
+                <h:inputText class="input-lg" id="username" value="#{loginBean.username}"></h:inputText>
+                 <h:outputText value="Password  " />
+                 <h:inputSecret class="input-lg" id="password" value="#{loginBean.password}"></h:inputSecret>
+            </h:panelGrid>
+                <br/>
+                <h:commandButton class="btn bg-info" action="#{loginBean.validateUsernamePassword()}" value="Login"></h:commandButton>
+	
+                <hr/> <br/>
+                <h:outputText value="if you are the first time log in to the web please click here to init the data of the web site" />
+                <br/>
+                <h:commandButton class="btn btn-info" action ="#{userBean.initialize()}" value="UserInit" disabled="#{userBean.isAnyUserExist()}"/>
+               
+        </h:form>
+    </ui:define>
+
+</ui:composition>

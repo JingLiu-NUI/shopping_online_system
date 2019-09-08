@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./templates/TemplateHome.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="content">
+        
+          <h:form>
+        <c:choose>
+            <c:when test="#{showCart.mycart.size()>0}">
+                    <h:dataTable class="table tab-content" width="400"  value="#{showCart.mycart}" var="emp" cellpadding="10" >
+                    <h:column>
+                        <f:facet name="header">Product Name</f:facet>
+                        <h:outputText value="#{showCart.showProductName(emp)}" />
+                    </h:column>            
+                   <h:column>
+                        <f:facet name="header">Unit Price</f:facet>
+                        <h:outputText value="#{showCart.showProductPrice(emp)}">
+                            <f:convertNumber maxFractionDigits="2"></f:convertNumber>
+                        </h:outputText>€
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Quantity</f:facet>
+                        <h:commandButton class="btn btn-default" value="-" 
+                                          action="#{showCart.decreaseQuantity(emp)}">
+                         </h:commandButton>
+                        <h:outputText value="#{emp.productQuantity}"></h:outputText>
+                        <h:commandButton class="btn btn-default" value="+" 
+                                          action="#{showCart.increaseQuantity(emp)}">
+                         </h:commandButton>
+                    </h:column>
+                   <h:column>
+                        <f:facet name="header">Total Price</f:facet>
+                        <h:outputText value="#{showCart.showProductTotalPrice(emp)}">
+                            <f:convertNumber maxFractionDigits="2" />
+                        </h:outputText>€
+                   </h:column>
+                   <h:column>
+                        <f:facet name="header">Date</f:facet>
+                        <h:outputText value="#{emp.addDate}">
+                            <f:convertDateTime pattern="dd/MMM/YYYY"></f:convertDateTime>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Choose</f:facet>         
+                        <h:selectBooleanCheckbox value="#{emp.checked}" onclick="submit()"></h:selectBooleanCheckbox>
+                    </h:column>
+               </h:dataTable>
+                    The Total Price:
+                <h:outputText style="font-size: 40px" class="text-primary" value="#{showCart.totalprice}">
+                     <f:convertNumber maxFractionDigits="2"></f:convertNumber>
+                </h:outputText> € &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <h:commandButton class="btn btn-primary" value="Go Back" action="index"></h:commandButton>
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               <c:choose>
+                     <c:when test="#{showCart.totalprice==0}">
+                         <h:commandButton class="btn btn-default" value="Go to Pay" disabled="#{true}"></h:commandButton>
+                     </c:when>
+                     <c:otherwise>
+                         <h:commandButton class="btn btn-default" value="Go to Pay" action="HomePage" disabled="#{false}"></h:commandButton>
+                     </c:otherwise>                
+                </c:choose>
+             </c:when>
+            <c:otherwise>
+                <h:outputText value="Your shopping cart is empty, Just to buy!"></h:outputText>
+                <h:commandButton class="btn bg-primary" value="Go Shopping" action="GoShoppingPage"></h:commandButton>
+                <h:commandButton class="btn btn-default" value="Continue Shopping" action="GoShoppingPage"></h:commandButton>
+                <h:commandButton class="btn bg-primary" value="Go Back" action="home_customer"></h:commandButton>
+            </c:otherwise>
+           </c:choose> 
+        </h:form>
+    </ui:define>
+</ui:composition>
